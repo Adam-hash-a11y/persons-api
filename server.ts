@@ -8,7 +8,7 @@ export const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 3000;
 
 app.get("/", (req, res) => {
   res.send("Hello World");
