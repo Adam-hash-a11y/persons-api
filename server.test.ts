@@ -2,6 +2,19 @@ import request from "supertest";
 import { app } from "./server";
 
 describe("GET /", () => {
+  //@ts-ignore
+  let server;
+  beforeAll((done) => {
+    server = app.listen(3000);
+    done();
+  });
+
+  afterAll((done) => {
+    //@ts-ignore
+    server.close();
+    done();
+  });
+
   it("should return Hello world ", async () => {
     // When
     const response = await request(app).get("/");
@@ -13,6 +26,18 @@ describe("GET /", () => {
 });
 
 describe("POST /adam", () => {
+  //@ts-ignore
+  let server;
+  beforeAll((done) => {
+    server = app.listen(3000);
+    done();
+  });
+
+  afterAll((done) => {
+    //@ts-ignore
+    server.close();
+    done();
+  });
   it("should retunr the given body in teh request ", async () => {
     //Given
 
