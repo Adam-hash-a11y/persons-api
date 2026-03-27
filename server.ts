@@ -1,11 +1,21 @@
 import express from "express";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const app = express();
+const PORT = process.env.PORT;
+
+app.use(express.json());
 
 app.get("/", (req, res) => {
   res.send("Hello World");
 });
 
-app.listen(5000, () => {
-  console.log("Server is running on http://localhost:5000");
+app.post("/adam", (req, res) => {
+  res.send(req.body);
+});
+
+app.listen(PORT, () => {
+  console.log(`Server is running on http://localhost:${PORT}`);
 });
