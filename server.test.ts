@@ -1,9 +1,8 @@
-// server.test.ts
 import request from "supertest";
 import express from "express";
 
 describe("GET /", () => {
-  it("Given the server is running, When GET / is called, Then it returns Hello World", async () => {
+  it("should return Hello world ", async () => {
     // Given
 
     const app = express();
