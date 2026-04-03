@@ -1,6 +1,6 @@
 import request from "supertest";
 import { app } from "./server";
-import { Server } from "http";
+import { Server } from "node:http";
 
 describe("GET /", () => {
   let server: Server;
@@ -32,11 +32,10 @@ describe("POST /adam", () => {
   });
 
   afterAll((done) => {
-  
     server.close();
     done();
   });
-  it("should retunr the given body in teh request ", async () => {
+  it("should return the given body in the request ", async () => {
     //Given
 
     const payload = { name: "adam", secondName: "hamdi" };
