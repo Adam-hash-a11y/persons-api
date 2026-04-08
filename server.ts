@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import { filterById } from "./personServices";
 import bodyParser from "body-parser";
+import validator from "validator";
 
 dotenv.config();
 
@@ -15,10 +16,16 @@ app.get("/", (req, res) => {
 });
 
 app.get("/:id", (req, res) => {
-  console.log(req.params.id);
+  if (!validator.isInt(req.params.id)) {
+    return res.status(400).json({ error: "invalid id, the id must a number" });
+  }
   const userId = Number(req.params.id);
   const test = filterById(userId);
-  res.json(test);
+  if (test.length == 0) {
+    return res.status(404).json({ error: "person is not found" });
+  } else {
+    res.status(200).json(test);
+  }
 });
 
 app.post("/adam", (req, res) => {
