@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { isValidId } from "../../src/validator/person.validator";
 
 describe("test isValidId validator function", () => {
@@ -14,7 +13,7 @@ describe("test isValidId validator function", () => {
   });
   it("should return false if the given id is a string", () => {
     //Given
-    const id: any = "aa";
+    const id = "aa" as unknown as number;
 
     //When
     const result = isValidId(id);
