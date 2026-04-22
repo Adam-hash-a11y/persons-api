@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { isValidId } from "../../src/validator/person.validator";
 
 describe("test isValidId validator function", () => {
