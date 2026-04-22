@@ -1,4 +1,4 @@
-import { GENDER, Person, TYPE } from "./person.type";
+import { GENDER, Person, TYPE } from "../types/person.type";
 
 //Enums
 export const personList: Person[] = [

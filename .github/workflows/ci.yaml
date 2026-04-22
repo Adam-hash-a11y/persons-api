@@ -1,4 +1,4 @@
-name: animals
+name: persons-api
 
 on:
   pull_request:
