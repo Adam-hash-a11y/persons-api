@@ -6,7 +6,7 @@
     "dev": "nodemon main.ts",
     "test": "jest",
     "eslint": "npx eslint .",
-    "prettier": "npx prettier . --write"
+    "prettier": "npx prettier --write src/**/*.ts tests/**/*.ts"
   },
   "keywords": [],
   "author": "",
