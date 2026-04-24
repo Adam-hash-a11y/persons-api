@@ -4,4 +4,3 @@ import { personRouter } from "./person.routes";
 export const router = express.Router();
 
 router.use("/persons", personRouter);
-// router.use("/cars", carsRoutes);
