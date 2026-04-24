@@ -1,6 +1,7 @@
 import request from "supertest";
 import { app } from "../../src/api/api";
 import { Server } from "node:http";
+import { getPeopleStats } from "../../src/service/personServices";
 
 describe("GET /:id", () => {
   let server: Server;
@@ -57,5 +58,39 @@ describe("GET /:id", () => {
     expect(response.body).toStrictEqual({
       error: "invalid id, the id must a number",
     });
+  });
+});
+
+describe("test GET/ stats", () => {
+  let server: Server;
+  beforeAll((done) => {
+    server = app.listen(3000);
+    done();
+  });
+
+  afterAll((done) => {
+    server.close();
+    done();
+  });
+  it("should return the statistics of people", async () => {
+    //Given
+    const expectedStats = getPeopleStats();
+
+    //When
+    const response = await request(app).get(`/api/persons/stats`);
+
+    //Then
+    expect(response.status).toBe(200);
+    expect(response.body).toStrictEqual(expectedStats);
+  });
+
+  it("should return an object with kids, men and women counts", async () => {
+    // When
+    const response = await request(app).get("/api/persons/stats");
+
+    // Then
+    expect(response.body).toHaveProperty("Number of kids");
+    expect(response.body).toHaveProperty("Number of men");
+    expect(response.body).toHaveProperty("Number of women");
   });
 });

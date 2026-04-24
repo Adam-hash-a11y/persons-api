@@ -1,4 +1,9 @@
-import { addPerson, filterById } from "../../src/service/personServices";
+import { personList } from "../../src/data/personData";
+import {
+  addPerson,
+  filterById,
+  getPeopleStats,
+} from "../../src/service/personServices";
 import { GENDER, TYPE } from "../../src/types/person.type";
 
 describe("test filterById function", () => {
@@ -42,7 +47,7 @@ describe("test filterById function", () => {
   });
 });
 
-describe("addPerson", () => {
+describe("test addPerson service function", () => {
   it("should add a person to the list and return the updated list", () => {
     // Given
     const body = {
@@ -75,5 +80,28 @@ describe("addPerson", () => {
 
     // Then
     expect(result).toContainEqual(body);
+  });
+});
+
+describe("test getPeopleStats service function", () => {
+  it("should return an object with kids men and women counts", () => {
+    // When
+    const result = getPeopleStats();
+
+    // Then
+    expect(result).toHaveProperty("Number of kids");
+    expect(result).toHaveProperty("Number of men");
+    expect(result).toHaveProperty("Number of women");
+  });
+  it("should return counts that add up to total persons", () => {
+    // When
+    const result = getPeopleStats();
+    const total =
+      result["Number of kids"] +
+      result["Number of men"] +
+      result["Number of women"];
+
+    // Then
+    expect(total).toBe(personList.length);
   });
 });
