@@ -1,8 +1,13 @@
 import { Request, Response } from "express";
 import { filterById, addPerson } from "../service/personServices";
 import {
+  isExisitingPerson,
+  isValidAge,
+  isValidGender,
   isValidId,
-  validatePersonCreation,
+  isValidKeys,
+  isValidName,
+  isValidType
 } from "../validator/person.validator";
 
 export const findPersonById = (req: Request<{ id: string }>, res: Response) => {
@@ -20,14 +25,28 @@ export const findPersonById = (req: Request<{ id: string }>, res: Response) => {
 };
 
 export const addPersons = (req: Request, res: Response) => {
-  const valid = validatePersonCreation(req.body);
-  if (valid) {
-    const result = addPerson(req.body);
-
-    return res.status(200).json(result);
-  } else {
-    return res
-      .status(403)
-      .json({ message: "missing paramaters or invalid paramaters" });
+  if (!isValidKeys(req.body)) {
+    return res.status(400).json({ message: "invalid or missing fields" });
   }
+  if (!isValidId(req.body.id)) {
+    return res.status(400).json({ message: "id must be a positive integer" });
+  }
+  if (!isExisitingPerson(req.body.id)) {
+    return res.status(409).json({ message: "person with this id already exists" });
+  }
+  if (!isValidName(req.body.name)) {
+    return res.status(400).json({ message: "name must contain only letters and be at least 3 characters" });
+  }
+  if (!isValidAge(req.body.age)) {
+    return res.status(400).json({ message: "age must be a positive integer under 150" });
+  }
+  if (!isValidGender(req.body.gender)) {
+    return res.status(400).json({ message: "gender must be male or female" });
+  }
+  if (!isValidType(req.body.type)) {
+    return res.status(400).json({ message: "type must be kid, men or women" });
+  }
+
+  const result = addPerson(req.body);
+  return res.status(201).json(result);
 };
