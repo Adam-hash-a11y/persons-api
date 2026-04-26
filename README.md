@@ -3,29 +3,11 @@
 A REST API for managing a list of persons with full CRUD operations, statistics, and filtering by gender and type.
 
 This project includes:
+
 - strict validation layer
 - unit tests (API, service, validator)
 - CI pipeline (GitHub Actions)
 - linting + pre-commit hooks (Husky)
-
----
-
-## Project Structure
-src/
-├── api/
-├── controller/
-├── routes/
-├── service/
-├── types/
-├── validator/
-└── data/
-tests/
-├── api/
-├── service/
-└── validator/
-.github/
-└── workflows/
-.husky/
 
 ---
 
@@ -71,6 +53,7 @@ npm run test
 ## Endpoints
 
 ### GET /api/persons
+
 Returns all persons. Supports optional query params.
 GET /api/persons
 GET /api/persons?gender=male
@@ -78,6 +61,7 @@ GET /api/persons?type=kid
 GET /api/persons?gender=male&type=kid
 
 **Response 200**
+
 ```json
 [
   {
@@ -91,6 +75,7 @@ GET /api/persons?gender=male&type=kid
 ```
 
 **Error responses**
+
 ```json
 { "message": "invalid query params" }
 { "message": "gender must be male or female" }
@@ -100,9 +85,11 @@ GET /api/persons?gender=male&type=kid
 ---
 
 ### GET /api/persons/stats
+
 Returns count of kids, men and women.
 
 **Response 200**
+
 ```json
 {
   "Number of kids": 2,
@@ -114,9 +101,11 @@ Returns count of kids, men and women.
 ---
 
 ### GET /api/persons/:id
+
 Returns a person by id.
 
 **Response 200**
+
 ```json
 [
   {
@@ -130,6 +119,7 @@ Returns a person by id.
 ```
 
 **Error responses**
+
 ```json
 { "error": "invalid id, the id must a number" }
 { "error": "person is not found" }
@@ -138,9 +128,11 @@ Returns a person by id.
 ---
 
 ### POST /api/persons/add-person
+
 Adds a new person to the list.
 
 **Request body**
+
 ```json
 {
   "id": 100,
@@ -152,11 +144,13 @@ Adds a new person to the list.
 ```
 
 **Response 201**
+
 ```json
 [...updated list]
 ```
 
 **Error responses**
+
 ```json
 { "message": "invalid or missing fields" }
 { "message": "id must be a positive integer" }
@@ -170,14 +164,17 @@ Adds a new person to the list.
 ---
 
 ### DELETE /api/persons/:id
+
 Deletes a person by id.
 
 **Response 200**
+
 ```json
 [...updated list]
 ```
 
 **Error responses**
+
 ```json
 { "message": "invalid id, the id must be a number" }
 { "message": "person not found" }
@@ -187,13 +184,13 @@ Deletes a person by id.
 
 ## Validation Rules
 
-| Field | Rules |
-|---|---|
-| id | positive integer, must be unique |
-| name | letters only, minimum 3 characters |
-| age | positive integer, maximum 150 |
-| gender | male or female |
-| type | kid, men or women |
+| Field  | Rules                              |
+| ------ | ---------------------------------- |
+| id     | positive integer, must be unique   |
+| name   | letters only, minimum 3 characters |
+| age    | positive integer, maximum 150      |
+| gender | male or female                     |
+| type   | kid, men or women                  |
 
 ---
 
@@ -206,5 +203,6 @@ Deletes a person by id.
 ## Git Hooks
 
 Pre-commit hooks via Husky ensure:
+
 - lint rules are respected
 - tests pass before every commit
