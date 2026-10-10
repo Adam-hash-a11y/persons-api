@@ -224,7 +224,9 @@ describe("DELETE /api/persons/:id", () => {
 
     // Then
     expect(result.status).toBe(200);
-    expect(result.body.find((p: { id: number; }) => p.id === userId)).toBeUndefined();
+    expect(
+      result.body.find((p: { id: number }) => p.id === userId),
+    ).toBeUndefined();
   });
 
   it("should return 404 when person does not exist", async () => {
